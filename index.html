@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextPlay Studios</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #181c24;
+      color: #f3f3f3;
+    }
+    header {
+      background: #23283a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      padding: 0.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo {
+      height: 60px;
+      filter: drop-shadow(0 2px 8px #00e0ff44);
+    }
+    nav a {
+      color: #00e0ff;
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+    .hero {
+      background: linear-gradient(120deg, #181c24 60%, #00e0ff 100%);
+      padding: 5rem 1rem 4rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #00e0ff;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 16px #00e0ff33;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      color: #e0e0e0;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero .cta {
+      background: #00e0ff;
+      color: #181c24;
+      border: none;
+      border-radius: 30px;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 16px #00e0ff55;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero .cta:hover {
+      background: #fff;
+      color: #00e0ff;
+    }
+    .games-section {
+      max-width: 1200px;
+      margin: 4rem auto 0 auto;
+      padding: 0 1rem;
+    }
+    .games-section h2 {
+      text-align: center;
+      color: #00e0ff;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .game {
+      background: #23283a;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #00e0ff11;
+      padding: 1.5rem 1rem 1.2rem 1rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .game:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 32px #00e0ff33;
+    }
+    .game-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      background: #222;
+      border: 2px solid #00e0ff44;
+    }
+    .game h3 {
+      color: #00e0ff;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .game p {
+      color: #e0e0e0;
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
+    }
+    .game .boton {
+      background: #00e0ff;
+      color: #181c24;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .game .boton:hover {
+      background: #fff;
+      color: #00e0ff;
+    }
+    .about-section {
+      background: #23283a;
+      padding: 3rem 1rem;
+      margin: 4rem 0 0 0;
+      box-shadow: 0 2px 8px #00e0ff22;
+      text-align: center;
+    }
+    .about-section h2 {
+      color: #00e0ff;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .about-section p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .contact-section {
+      background: #181c24;
+      padding: 3rem 1rem;
+      margin: 0;
+      text-align: center;
+    }
+    .contact-section h2 {
+      color: #00e0ff;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .contact-section p, .contact-section a {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+    }
+    .contact-section a:hover {
+      color: #00e0ff;
+      text-decoration: underline;
+    }
+    footer {
+      background: #00e0ff;
+      color: #181c24;
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+      font-size: 1rem;
+      margin-top: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <img src="logo-nextplay.png" alt="NextPlay Studios" class="logo">
+      <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#juegos">Juegos</a>
+        <a href="#about">Sobre Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <h1>NextPlay Studios</h1>
+    <p>Desarrollamos videojuegos originales, creativos y divertidos para todas las edades.<br>¡Explora nuestros juegos y únete a la comunidad NextPlay!</p>
+    <a href="#juegos" class="cta">Ver juegos</a>
+  </section>
+
+  <section class="games-section" id="juegos">
+    <h2>Nuestros Juegos</h2>
+    <div class="games-grid">
+      <div class="game">
+        <img src="game1.jpg" alt="Pixel Runner" class="game-img">
+        <h3>Pixel Runner</h3>
+        <p>Corre, salta y esquiva obstáculos en este adictivo endless runner retro.</p>
+        <a href="pixel-runner.zip" class="boton" download>Descargar</a>
+      </div>
+      <div class="game">
+        <img src="game2.jpg" alt="Space Defender" class="game-img">
+        <h3>Space Defender</h3>
+        <p>Defiende la galaxia de oleadas de enemigos en este shooter espacial.</p>
+        <a href="space-defender.zip" class="boton" download>Descargar</a>
+      </div>
+      <div class="game">
+        <img src="game3.jpg" alt="Puzzle Quest" class="game-img">
+        <h3>Puzzle Quest</h3>
+        <p>Resuelve desafiantes puzzles y desbloquea nuevos niveles y logros.</p>
+        <a href="puzzle-quest.zip" class="boton" download>Descargar</a>
+      </div>
+      <div class="game">
+        <img src="game4.jpg" alt="Color Jump" class="game-img">
+        <h3>Color Jump</h3>
+        <p>Salta de plataforma en plataforma cambiando de color para avanzar.</p>
+        <a href="color-jump.zip" class="boton" download>Descargar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <h2>Sobre Nosotros</h2>
+    <p>Somos un equipo apasionado por los videojuegos y la tecnología. Creamos experiencias digitales únicas, priorizando la diversión, la creatividad y la innovación.</p>
+    <p>En NextPlay Studios creemos en el poder de los juegos para conectar personas y despertar la imaginación.</p>
+  </section>
+
+  <section class="contact-section" id="contacto">
+    <h2>Contacto</h2>
+    <p>¿Querés contactarnos, colaborar o enviarnos tus ideas?</p>
+    <p><strong>Email:</strong> <a href="mailto:nextplaystudios@gmail.com">nextplaystudios@gmail.com</a></p>
+    <p><strong>Instagram:</strong> <a href="https://instagram.com/nextplaystudios" target="_blank">@nextplaystudios</a></p>
+    <p><strong>Discord:</strong> <a href="https://discord.gg/nextplaystudios" target="_blank">Unite a la comunidad</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 NextPlay Studios. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
