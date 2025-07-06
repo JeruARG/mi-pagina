@@ -295,6 +295,78 @@
       background: #00e0ff;
       color: #181c24;
     }
+
+    @media (max-width: 700px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 1rem;
+      }
+      nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      nav a, .lang-select {
+        margin: 0.5rem 0.5rem 0.5rem 0;
+        font-size: 1rem;
+      }
+      .logo {
+        height: 44px;
+        margin-bottom: 0.5rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1.05rem;
+      }
+      .hero .cta {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+      }
+      .games-section {
+        margin-top: 2rem;
+        padding: 0 0.2rem;
+      }
+      .games-section h2 {
+        font-size: 1.3rem;
+      }
+      .games-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .game {
+        padding: 1rem 0.5rem 0.8rem 0.5rem;
+      }
+      .game-img {
+        width: 80px;
+        height: 80px;
+      }
+      .game h3 {
+        font-size: 1rem;
+      }
+      .game .boton, .desc-btn {
+        font-size: 0.95rem;
+        padding: 0.5rem 1.1rem;
+      }
+      .about-section, .contact-section {
+        padding: 1.5rem 0.5rem;
+      }
+      .about-section h2, .contact-section h2 {
+        font-size: 1.2rem;
+      }
+      .about-section p, .contact-section p, .contact-section a {
+        font-size: 0.98rem;
+      }
+      footer {
+        font-size: 0.95rem;
+        padding: 1.2rem 0.5rem 0.7rem 0.5rem;
+      }
+    }
   </style>
 </head>
 <body>
