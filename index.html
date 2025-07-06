@@ -12,7 +12,7 @@
       font-family: 'Montserrat', Arial, sans-serif;
       background: #181c24;
       color: #f3f3f3;
-    }
+}
     header {
       background: #23283a;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
@@ -96,6 +96,37 @@
       margin-bottom: 2rem;
       font-weight: 800;
       letter-spacing: 1px;
+    }
+    .search-filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    #searchInput {
+      padding: 0.7rem 1.2rem;
+      border-radius: 20px;
+      border: none;
+      font-size: 1.1rem;
+      width: 220px;
+      background: #23283a;
+      color: #fff;
+      box-shadow: 0 2px 8px #00e0ff22;
+    }
+    #searchInput:focus {
+      outline: 2px solid #00e0ff;
+    }
+    #filterSelect {
+      padding: 0.7rem 1.2rem;
+      border-radius: 20px;
+      border: none;
+      font-size: 1.1rem;
+      background: #23283a;
+      color: #00e0ff;
+      box-shadow: 0 2px 8px #00e0ff22;
+    }
+    #filterSelect:focus {
+      outline: 2px solid #00e0ff;
     }
     .games-grid {
       display: grid;
@@ -203,6 +234,67 @@
       font-weight: 600;
       letter-spacing: 1px;
     }
+    .proximamente {
+      display: inline-block;
+      margin-top: 0.7rem;
+      padding: 0.5rem 1.2rem;
+      background: #23283a;
+      color: #ffb300;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px #ffb30033;
+      border: 2px solid #ffb30055;
+      text-shadow: 0 2px 8px #0008;
+    }
+    .gratis {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.3rem 0.8rem;
+      background: #00e0ff;
+      color: #181c24;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px #00e0ff55;
+    }
+    .desc-btn {
+      background: #23283a;
+      color: #00e0ff;
+      border: 2px solid #00e0ff;
+      border-radius: 20px;
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 0.5rem 0 0.5rem 0;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      box-shadow: 0 2px 8px #00e0ff22;
+      display: inline-block;
+    }
+    .desc-btn:hover {
+      background: #00e0ff;
+      color: #181c24;
+      border: 2px solid #00e0ff;
+    }
+    .lang-select {
+      background: #23283a;
+      color: #00e0ff;
+      border: 2px solid #00e0ff;
+      border-radius: 20px;
+      padding: 0.4rem 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-select:hover {
+      background: #00e0ff;
+      color: #181c24;
+    }
   </style>
 </head>
 <body>
@@ -210,156 +302,337 @@
     <div class="nav-container">
       <img src="logo-nextplay.png" alt="NextPlay Studios" class="logo">
       <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="#juegos">Juegos</a>
-        <a href="#about">Sobre Nosotros</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#inicio" data-txt="nav-inicio">Inicio</a>
+        <a href="#juegos" data-txt="nav-juegos">Juegos</a>
+        <a href="#about" data-txt="nav-about">Sobre Nosotros</a>
+        <a href="#contacto" data-txt="nav-contacto">Contacto</a>
+        <select class="lang-select" id="langSelect">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
       </nav>
     </div>
   </header>
 
   <section class="hero" id="inicio">
-    <h1>NextPlay Studios</h1>
-    <p>Desarrollamos videojuegos originales, creativos y divertidos para todas las edades.<br>¡Explora nuestros juegos y únete a la comunidad NextPlay!</p>
-    <a href="#juegos" class="cta">Ver juegos</a>
+    <h1 data-txt="hero-title">NextPlay Studios</h1>
+    <p data-txt="hero-desc">Desarrollamos videojuegos originales, creativos y divertidos para todas las edades.<br>¡Explora nuestros juegos y únete a la comunidad NextPlay!</p>
+    <a href="#juegos" class="cta" data-txt="hero-cta">Ver juegos</a>
   </section>
 
   <section class="games-section" id="juegos">
-    <h2>Nuestros Juegos</h2>
-    <div class="games-grid">
+    <h2 data-txt="games-title">Nuestros Juegos</h2>
+    <div class="search-filter-bar">
+      <input type="text" id="searchInput" placeholder="Buscar juego..." />
+      <select id="filterSelect">
+        <option value="all">Todos</option>
+        <option value="disponible">Disponibles</option>
+        <option value="proximamente">Próximamente</option>
+      </select>
+    </div>
+    <div class="games-grid" id="gamesGrid">
       <div class="game">
         <img src="Starfighter.png" alt="Starfighter" class="game-img">
         <h3>Starfighter</h3>
-        <p>Dispara y sobrevive en intensas batallas espaciales.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis" data-txt="gratis">Gratis</span>
+        <a href="StarFighter (2).apk" class="boton" download data-txt="descargar">Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-starfighter">Dispara y sobrevive en intensas batallas espaciales.</p>
       </div>
       <div class="game">
         <img src="Ninja Frog.png" alt="Ninja Frog" class="game-img">
         <h3>Ninja Frog</h3>
-        <p>Salta y esquiva obstáculos como una rana ninja.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-ninja-frog">Salta y esquiva obstáculos como una rana ninja.</p>
       </div>
       <div class="game">
         <img src="The king knight                    Remake .png" alt="The king knight Remake" class="game-img">
         <h3>The king knight Remake</h3>
-        <p>Una nueva versión del clásico de aventuras medievales.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-king-knight-remake">Una nueva versión del clásico de aventuras medievales.</p>
       </div>
       <div class="game">
         <img src="Banana Monkey.png" alt="Banana Monkey" class="game-img">
         <h3>Banana Monkey</h3>
-        <p>Recoge bananas y esquiva peligros en la jungla.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-banana-monkey">Recoge bananas y esquiva peligros en la jungla.</p>
       </div>
       <div class="game">
         <img src="Animal Run.png" alt="Animal Run" class="game-img">
         <h3>Animal Run</h3>
-        <p>Corre con tu animal favorito y supera obstáculos.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <a href="Animals run.android.debug (1).apk" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-animal-run">Corre con tu animal favorito y supera obstáculos.</p>
       </div>
       <div class="game">
         <img src="Pizza tycoon.png" alt="Pizza tycoon" class="game-img">
         <h3>Pizza tycoon</h3>
-        <p>Conviértete en el magnate de la pizza y gestiona tu negocio.</p>
+        <span class="gratis">Gratis</span>
         <a href="#" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-pizza-tycoon">Conviértete en el magnate de la pizza y gestiona tu negocio.</p>
       </div>
       <div class="game">
         <img src="Minijuegos para 234 Jugadores.png" alt="Minijuegos para 234 Jugadores" class="game-img">
         <h3>Minijuegos para 234 Jugadores</h3>
-        <p>¡Compite en divertidos minijuegos multijugador!</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-minijuegos-234">¡Compite en divertidos minijuegos multijugador!</p>
       </div>
       <div class="game">
         <img src="The zombie apocalypse Remake.png" alt="The zombie apocalypse Remake" class="game-img">
         <h3>The zombie apocalypse Remake</h3>
-        <p>Remake mejorado del clásico de supervivencia zombi.</p>
+        <span class="gratis">Gratis</span>
         <a href="#" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-zombie-apocalypse-remake">Remake mejorado del clásico de supervivencia zombi.</p>
       </div>
       <div class="game">
         <img src="Big Quest.png" alt="Big Quest" class="game-img">
         <h3>Big Quest</h3>
-        <p>Embárcate en una gran aventura llena de desafíos.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-big-quest">Embárcate en una gran aventura llena de desafíos.</p>
       </div>
       <div class="game">
         <img src="The history of the word.png" alt="The history of the word" class="game-img">
         <h3>The history of the word</h3>
-        <p>Descubre la historia detrás de las palabras.</p>
+        <span class="gratis">Gratis</span>
         <a href="#" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-history-of-the-word">Descubre la historia detrás de las palabras.</p>
       </div>
       <div class="game">
         <img src="The King Knight.png" alt="The King Knight" class="game-img">
         <h3>The King Knight</h3>
-        <p>Vive la aventura de un caballero en busca de gloria.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <a href="The Kings Knight.apk" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-king-knight">Vive la aventura de un caballero en busca de gloria.</p>
       </div>
       <div class="game">
         <img src="The King Knight DLC separate paths.png" alt="The King Knight DLC separate paths" class="game-img">
         <h3>The King Knight DLC<br>separate paths</h3>
-        <p>Expansión con nuevas rutas y desafíos para el caballero.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-king-knight-dlc">Expansión con nuevas rutas y desafíos para el caballero.</p>
       </div>
       <div class="game">
         <img src="The colector.png" alt="The colector" class="game-img">
         <h3>The colector</h3>
-        <p>Recolecta objetos raros y completa tu colección.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-colector">Recolecta objetos raros y completa tu colección.</p>
       </div>
       <div class="game">
         <img src="Wild War.png" alt="Wild War" class="game-img">
         <h3>Wild War</h3>
-        <p>Participa en batallas salvajes y conquista territorios.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-wild-war">Participa en batallas salvajes y conquista territorios.</p>
       </div>
       <div class="game">
         <img src="Billar.png" alt="Billar" class="game-img">
         <h3>Billar</h3>
-        <p>Demuestra tu habilidad en la mesa de billar virtual.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <a href="Billar.android.debug (3).apk" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-billar">Demuestra tu habilidad en la mesa de billar virtual.</p>
       </div>
       <div class="game">
         <img src="Starfighter 2 Demo.png" alt="Starfighter 2 Demo" class="game-img">
         <h3>Starfighter 2 Demo</h3>
-        <p>Prueba la demo de la secuela del clásico espacial.</p>
+        <span class="gratis">Gratis</span>
         <a href="#" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-starfighter-2-demo">Prueba la demo de la secuela del clásico espacial.</p>
       </div>
       <div class="game">
         <img src="Agarra la fruta.png" alt="Agarra la fruta" class="game-img">
         <h3>Agarra la fruta</h3>
-        <p>Recoge la mayor cantidad de frutas posible.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <a href="AGARRA LA FRUTA.android.debug.apk" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-agarrar-la-fruta">Recoge la mayor cantidad de frutas posible.</p>
       </div>
       <div class="game">
         <img src="Las aventuras del poli.png" alt="Las aventuras del poli" class="game-img">
         <h3>Las aventuras del poli</h3>
-        <p>Acompaña al poli en sus increíbles aventuras.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <span class="proximamente" data-txt="proximamente">Próximamente</span>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-las-aventuras-del-poli">Acompaña al poli en sus increíbles aventuras.</p>
       </div>
       <div class="game">
         <img src="The king knight beta Cancelada.png" alt="The king knight beta Cancelada" class="game-img">
         <h3>The king knight beta Cancelada</h3>
-        <p>Versión beta cancelada del caballero rey.</p>
-        <a href="#" class="boton" download>Descargar</a>
+        <span class="gratis">Gratis</span>
+        <a href="the king's knight beta cancelada.apk" class="boton" download>Descargar</a>
+        <button class="desc-btn" data-txt="info">Info</button>
+        <p class="desc-text" style="display:none;" data-txt="desc-the-king-knight-beta-cancelada">Versión beta cancelada del caballero rey.</p>
       </div>
     </div>
   </section>
 
   <section class="about-section" id="about">
-    <h2>Sobre Nosotros</h2>
-    <p>Somos un equipo apasionado por los videojuegos y la tecnología. Creamos experiencias digitales únicas, priorizando la diversión, la creatividad y la innovación.</p>
-    <p>En NextPlay Studios creemos en el poder de los juegos para conectar personas y despertar la imaginación.</p>
+    <h2 data-txt="about-title">Sobre Nosotros</h2>
+    <p data-txt="about-1">Somos un equipo apasionado por los videojuegos y la tecnología. Creamos experiencias digitales únicas, priorizando la diversión, la creatividad y la innovación.</p>
+    <p data-txt="about-2">En NextPlay Studios creemos en el poder de los juegos para conectar personas y despertar la imaginación.</p>
   </section>
 
   <section class="contact-section" id="contacto">
-    <h2>Contacto</h2>
-    <p>¿Querés contactarnos, colaborar o enviarnos tus ideas?</p>
+    <h2 data-txt="contact-title">Contacto</h2>
+    <p data-txt="contact-1">¿Querés contactarnos, colaborar o enviarnos tus ideas?</p>
     <p><strong>Email:</strong> <a href="mailto:nextplaystudios@gmail.com">nextplaystudios@gmail.com</a></p>
     <p><strong>Instagram:</strong> <a href="https://instagram.com/nextplaystudios" target="_blank">@nextplaystudios</a></p>
-    <p><strong>Discord:</strong> <a href="https://discord.gg/nextplaystudios" target="_blank">Unite a la comunidad</a></p>
+    <p><strong>Discord:</strong> <a href="https://discord.gg/nextplaystudios" target="_blank" data-txt="discord-link">Unite a la comunidad</a></p>
+    <p><strong>WhatsApp:</strong> <a href="https://wa.me/5493571311856" target="_blank" class="whatsapp-link" data-txt="whatsapp-link">Enviar mensaje</a></p>
   </section>
 
   <footer>
-    <p>&copy; 2025 NextPlay Studios. Todos los derechos reservados.</p>
+    <p data-txt="footer">&copy; 2025 NextPlay Studios. Todos los derechos reservados.</p>
   </footer>
+  <script>
+      const searchInput = document.getElementById('searchInput');
+      const filterSelect = document.getElementById('filterSelect');
+      const gamesGrid = document.getElementById('gamesGrid');
+      const allGames = Array.from(gamesGrid.children);
+      function filterGames() {
+        const search = searchInput.value.toLowerCase();
+        const filter = filterSelect.value;
+        allGames.forEach(card => {
+          const title = card.querySelector('h3').textContent.toLowerCase();
+          const isProx = card.querySelector('.proximamente') !== null;
+          let show = true;
+          if (search && !title.includes(search)) show = false;
+          if (filter === 'disponible' && isProx) show = false;
+          if (filter === 'proximamente' && !isProx) show = false;
+          card.style.display = show ? '' : 'none';
+        });
+      }
+      searchInput.addEventListener('input', filterGames);
+      filterSelect.addEventListener('change', filterGames);
+      // Mostrar/ocultar descripción
+      document.querySelectorAll('.desc-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const desc = this.parentElement.querySelector('.desc-text');
+          if (desc.style.display === 'none') {
+            desc.style.display = 'block';
+            this.textContent = 'Ocultar';
+          } else {
+            desc.style.display = 'none';
+            this.textContent = 'Info';
+          }
+        });
+      });
+      // Traducciones ES/EN
+      const translations = {
+        es: {
+          'nav-inicio': 'Inicio',
+          'nav-juegos': 'Juegos',
+          'nav-about': 'Sobre Nosotros',
+          'nav-contacto': 'Contacto',
+          'hero-title': 'NextPlay Studios',
+          'hero-desc': 'Desarrollamos videojuegos originales, creativos y divertidos para todas las edades.<br>¡Explora nuestros juegos y únete a la comunidad NextPlay!',
+          'hero-cta': 'Ver juegos',
+          'games-title': 'Nuestros Juegos',
+          'gratis': 'Gratis',
+          'descargar': 'Descargar',
+          'proximamente': 'Próximamente',
+          'info': 'Info',
+          'about-title': 'Sobre Nosotros',
+          'about-1': 'Somos un equipo apasionado por los videojuegos y la tecnología. Creamos experiencias digitales únicas, priorizando la diversión, la creatividad y la innovación.',
+          'about-2': 'En NextPlay Studios creemos en el poder de los juegos para conectar personas y despertar la imaginación.',
+          'contact-title': 'Contacto',
+          'contact-1': '¿Querés contactarnos, colaborar o enviarnos tus ideas?',
+          'discord-link': 'Unite a la comunidad',
+          'footer': '&copy; 2025 NextPlay Studios. Todos los derechos reservados.',
+          // Descripciones de juegos (ejemplo)
+          'desc-starfighter': 'Dispara y sobrevive en intensas batallas espaciales.',
+          'desc-ninja-frog': 'Salta y esquiva obstáculos como una rana ninja.',
+          'desc-the-king-knight-remake': 'Una nueva versión del clásico de aventuras medievales.',
+          'desc-banana-monkey': 'Recoge bananas y esquiva peligros en la jungla.',
+          'desc-animal-run': 'Corre con tu animal favorito y supera obstáculos.',
+          'desc-pizza-tycoon': 'Conviértete en el magnate de la pizza y gestiona tu negocio.',
+          'desc-minijuegos-234': '¡Compite en divertidos minijuegos multijugador!',
+          'desc-the-zombie-apocalypse-remake': 'Remake mejorado del clásico de supervivencia zombi.',
+          'desc-big-quest': 'Embárcate en una gran aventura llena de desafíos.',
+          'desc-the-history-of-the-word': 'Descubre la historia detrás de las palabras.',
+          'desc-the-king-knight': 'Vive la aventura de un caballero en busca de gloria.',
+          'desc-the-king-knight-dlc': 'Expansión con nuevas rutas y desafíos para el caballero.',
+          'desc-the-colector': 'Recolecta objetos raros y completa tu colección.',
+          'desc-wild-war': 'Participa en batallas salvajes y conquista territorios.',
+          'desc-billar': 'Demuestra tu habilidad en la mesa de billar virtual.',
+          'desc-starfighter-2-demo': 'Prueba la demo de la secuela del clásico espacial.',
+          'desc-agarrar-la-fruta': 'Recoge la mayor cantidad de frutas posible.',
+          'desc-las-aventuras-del-poli': 'Acompaña al poli en sus increíbles aventuras.',
+          'desc-the-king-knight-beta-cancelada': 'Versión beta cancelada del caballero rey.'
+        },
+        en: {
+          'nav-inicio': 'Home',
+          'nav-juegos': 'Games',
+          'nav-about': 'About Us',
+          'nav-contacto': 'Contact',
+          'hero-title': 'NextPlay Studios',
+          'hero-desc': 'We develop original, creative and fun video games for all ages.<br>Explore our games and join the NextPlay community!',
+          'hero-cta': 'See games',
+          'games-title': 'Our Games',
+          'gratis': 'Free',
+          'descargar': 'Download',
+          'proximamente': 'Coming Soon',
+          'info': 'Info',
+          'about-title': 'About Us',
+          'about-1': 'We are a team passionate about video games and technology. We create unique digital experiences, prioritizing fun, creativity and innovation.',
+          'about-2': 'At NextPlay Studios we believe in the power of games to connect people and spark imagination.',
+          'contact-title': 'Contact',
+          'contact-1': 'Want to contact us, collaborate or send us your ideas?',
+          'discord-link': 'Join the community',
+          'footer': '&copy; 2025 NextPlay Studios. All rights reserved.',
+          // Descripciones de juegos (ejemplo)
+          'desc-starfighter': 'Shoot and survive in intense space battles.',
+          'desc-ninja-frog': 'Jump and dodge obstacles like a ninja frog.',
+          'desc-the-king-knight-remake': 'A new version of the classic medieval adventure.',
+          'desc-banana-monkey': 'Collect bananas and dodge dangers in the jungle.',
+          'desc-animal-run': 'Run with your favorite animal and overcome obstacles.',
+          'desc-pizza-tycoon': 'Become the pizza mogul and manage your business.',
+          'desc-minijuegos-234': 'Compete in fun multiplayer minigames!',
+          'desc-the-zombie-apocalypse-remake': 'Improved remake of the classic zombie survival game.',
+          'desc-big-quest': 'Embark on a great adventure full of challenges.',
+          'desc-the-history-of-the-word': 'Discover the history behind words.',
+          'desc-the-king-knight': 'Live the adventure of a knight in search of glory.',
+          'desc-the-king-knight-dlc': 'Expansion with new paths and challenges for the knight.',
+          'desc-the-colector': 'Collect rare items and complete your collection.',
+          'desc-wild-war': 'Participate in wild battles and conquer territories.',
+          'desc-billar': 'Demonstrate your skill at the virtual billiards table.',
+          'desc-starfighter-2-demo': 'Try the demo of the sequel to the classic space game.',
+          'desc-agarrar-la-fruta': 'Collect as many fruits as possible.',
+          'desc-las-aventuras-del-poli': 'Join the cop in his incredible adventures.',
+          'desc-the-king-knight-beta-cancelada': 'Cancelled beta version of the king knight.'
+        }
+      };
+      document.getElementById('langSelect').addEventListener('change', function() {
+        const lang = this.value;
+        document.querySelectorAll('[data-txt]').forEach(el => {
+          const key = el.getAttribute('data-txt');
+          if (translations[lang][key]) {
+            if (el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'SPAN') {
+              el.innerHTML = translations[lang][key];
+            }
+          }
+        });
+      });
+    </script>
 </body>
 </html>
